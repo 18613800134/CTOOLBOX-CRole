@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestForCRolePopedomGroup.cs" />
+    <Compile Include="TestForCRoleRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CRole\CRole.csproj">
