@@ -8,12 +8,6 @@ namespace CRole.Model.Entity
 
     public class CRoleRole : BaseEntityNormal
     {
-        /// <summary>
-        /// 角色的所属组织机构，如果为0，表示为系统定义的角色，无法被编辑或删除
-        /// </summary>
-        [Required]
-        [Index(IsClustered = false, IsUnique = false)]
-        public long OrganizationId { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "{0} 的长度为 {2} 到 {1} 个字符。", MinimumLength = 1)]
