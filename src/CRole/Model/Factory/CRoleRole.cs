@@ -10,7 +10,6 @@ namespace CRole.Model.Factory
         public static CRoleRole createRole()
         {
             CRoleRole role = EntityBuilder.build<CRoleRole>();
-            role.OrganizationId = 0;
             role.Name = "";
             role.Description = "";
             role.PopedomIdList = "";

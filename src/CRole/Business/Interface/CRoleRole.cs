@@ -10,7 +10,7 @@ namespace CRole.Business.Interface
 
     public interface ICRoleCommand : IBaseInterfaceCommand<DBContextCRole>
     {
-        long addRole(long OrganizationId, string Name, string Description);
+        long addRole(string Name, string Description);
         void updateRole(long Id, string Name, string Description);
         void updateRolePopedom(long Id, string PopedomIdList);
         void deleteRole(long Id);
