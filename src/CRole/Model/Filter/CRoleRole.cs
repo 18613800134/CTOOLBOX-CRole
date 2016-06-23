@@ -6,5 +6,6 @@ namespace CRole.Model.Filter
 
     public class CRoleFilter : BaseFilter
     {
+        public long OrganizationId { get; set; }
     }
 }

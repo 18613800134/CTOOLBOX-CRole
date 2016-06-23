@@ -70,10 +70,10 @@ namespace UnitTestForCRole
         {
             try
             {
-                string roleName = "运营人员";
+                string roleName = "运营人员heaa";
                 string desc = "hello";
                 ICRoleCommand ic = new CRole.Business.Aggregate.Aggregate();
-                long newId = ic.addRole(roleName, desc);
+                long newId = ic.addRole(1,roleName, desc);
 
                 Console.WriteLine("add CRoleRole ok! newId={0}, roleName={1}", newId, roleName);
 
