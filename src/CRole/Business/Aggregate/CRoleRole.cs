@@ -25,16 +25,19 @@ namespace CRole.Business.Aggregate
     public partial class Aggregate : ICRoleCommand
     {
 
-        public long addRole(string Name, string Description)
+        public long addRole(long OrganizationId, string Name, string Description)
         {
             try
             {
                 IRepository<CRoleRole> res = createRepository<CRoleRole>();
                 CRoleRole dbObj = CRoleFactory.createRole();
 
+                dbObj.OrganizationId = OrganizationId;
                 dbObj.Name = Name;
                 dbObj.Description = Description;
-                
+
+                dbObj.addValidationRule(new RoleCannotExistsSameNameRule(res, dbObj));
+
                 dbObj.validate();
                 res.add(dbObj);
                 commit();
@@ -57,6 +60,8 @@ namespace CRole.Business.Aggregate
 
                 dbObj.Name = Name;
                 dbObj.Description = Description;
+
+                dbObj.addValidationRule(new RoleCannotExistsSameNameRule(res, dbObj));
 
                 dbObj.validate();
                 res.update(dbObj);
@@ -117,9 +122,12 @@ namespace CRole.Business.Aggregate
                 IRepository<CRoleRole> res = createRepository<CRoleRole>();
                 CRoleRole dbObj = CRoleFactory.createRole();
 
+                dbObj.OrganizationId = role.OrganizationId;
                 dbObj.Name = NewName;
                 dbObj.Description = NewDescription;
                 dbObj.PopedomIdList = role.PopedomIdList;
+
+                dbObj.addValidationRule(new RoleCannotExistsSameNameRule(res, dbObj));
 
                 dbObj.validate();
                 res.add(dbObj);
@@ -143,7 +151,13 @@ namespace CRole.Business.Aggregate
         public IQueryable<CRoleRole> readRoleList(CRoleFilter filter)
         {
             Expression<Func<CRoleRole, bool>> lambda = FilterToLambdaBuilder.build<CRoleRole, CRoleFilter>(filter);
-            
+
+            lambda = lambda.And<CRoleRole>(m => m.OrganizationId == 0);
+            if (filter.OrganizationId > 0)
+            {
+                lambda = lambda.And<CRoleRole>(m => m.OrganizationId == filter.OrganizationId);
+            }
+
             IQueryable<CRoleRole> result = getDataByFilter<CRoleRole, CRoleFilter>(lambda, ref filter);
             return result;
         }

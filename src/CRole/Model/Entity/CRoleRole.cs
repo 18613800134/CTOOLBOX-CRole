@@ -8,6 +8,9 @@ namespace CRole.Model.Entity
 
     public class CRoleRole : BaseEntityNormal
     {
+        [Required]
+        [Index(IsClustered = false, IsUnique = false)]
+        public long OrganizationId { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "{0} 的长度为 {2} 到 {1} 个字符。", MinimumLength = 1)]
